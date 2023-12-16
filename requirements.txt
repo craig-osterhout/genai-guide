@@ -1,0 +1,6 @@
+streamlit
+langchain
+neo4j
+sentence_transformers==2.2.2
+torch==2.0.1
+PyPDF2
