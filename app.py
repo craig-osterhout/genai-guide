@@ -44,7 +44,7 @@ llm_name = os.getenv("LLM", "llama2")
 # Check if the required environment variables are set
 if not all([url, username, password, 
           ollama_base_url]):
- st.write("The applicaiton requires some information before running.")
+ st.write("The application requires some information before running.")
  with st.form("connection_form"):
      url = st.text_input("Enter NEO4J_URI",)
      username = st.text_input("Enter NEO4J_USERNAME")
