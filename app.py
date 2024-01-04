@@ -16,27 +16,6 @@ url = os.getenv("NEO4J_URI")
 username = os.getenv("NEO4J_USERNAME")
 password = os.getenv("NEO4J_PASSWORD")
 ollama_base_url = os.getenv("OLLAMA_BASE_URL")
-embedding_model_name = os.getenv("EMBEDDING_MODEL")
-llm_name = os.getenv("LLM")
-
-import os
-
-import streamlit as st
-from langchain.chains import RetrievalQA
-from PyPDF2 import PdfReader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.callbacks.base import BaseCallbackHandler
-from langchain.vectorstores.neo4j_vector import Neo4jVector
-from streamlit.logger import get_logger
-from chains import (
-    load_embedding_model,
-    load_llm,
-)
-
-url = os.getenv("NEO4J_URI")
-username = os.getenv("NEO4J_USERNAME")
-password = os.getenv("NEO4J_PASSWORD")
-ollama_base_url = os.getenv("OLLAMA_BASE_URL")
 embedding_model_name = os.getenv("EMBEDDING_MODEL", "SentenceTransformer" )
 llm_name = os.getenv("LLM", "llama2")
 
@@ -46,10 +25,10 @@ if not all([url, username, password,
           ollama_base_url]):
  st.write("The application requires some information before running.")
  with st.form("connection_form"):
-     url = st.text_input("Enter NEO4J_URI",)
-     username = st.text_input("Enter NEO4J_USERNAME")
-     password = st.text_input("Enter NEO4J_PASSWORD", type="password")
-     ollama_base_url = st.text_input("Enter OLLAMA_BASE_URL")
+     url = st.text_input("NEO4J_URI",)
+     username = st.text_input("NEO4J_USERNAME")
+     password = st.text_input("NEO4J_PASSWORD", type="password")
+     ollama_base_url = st.text_input("OLLAMA_BASE_URL")
      submit_button = st.form_submit_button("Submit")
  if submit_button:
      if not all([url, username, password, ollama_base_url]):
