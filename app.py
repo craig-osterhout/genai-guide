@@ -18,21 +18,28 @@ password = os.getenv("NEO4J_PASSWORD")
 ollama_base_url = os.getenv("OLLAMA_BASE_URL")
 embedding_model_name = os.getenv("EMBEDDING_MODEL", "SentenceTransformer" )
 llm_name = os.getenv("LLM", "llama2")
-
+url = os.getenv("NEO4J_URI")
 
 # Check if the required environment variables are set
-if not all([url, username, password, 
+if not all([url, username, password,
           ollama_base_url]):
- st.write("The application requires some information before running.")
- with st.form("connection_form"):
-     url = st.text_input("NEO4J_URI",)
-     username = st.text_input("NEO4J_USERNAME")
-     password = st.text_input("NEO4J_PASSWORD", type="password")
-     ollama_base_url = st.text_input("OLLAMA_BASE_URL")
-     submit_button = st.form_submit_button("Submit")
- if submit_button:
-     if not all([url, username, password, ollama_base_url]):
-       st.write("Please enter all the information.")
+    st.write("The application requires some information before running.")
+    with st.form("connection_form"):
+        url = st.text_input("Enter NEO4J_URI",)
+        username = st.text_input("Enter NEO4J_USERNAME")
+        password = st.text_input("Enter NEO4J_PASSWORD", type="password")
+        ollama_base_url = st.text_input("Enter OLLAMA_BASE_URL")
+        st.markdown("Only enter the OPENAI_APIKEY to use OpenAI instead of Ollama. Leave blank to use Ollama.")
+        openai_apikey = st.text_input("Enter OPENAI_API_KEY", type="password")
+        submit_button = st.form_submit_button("Submit")
+    if submit_button:
+        if not all([url, username, password, ]):
+            st.write("Enter the Neo4j information.")
+        if not (ollama_base_url or openai_apikey):
+            st.write("Enter the Ollama URL or OpenAI API Key.")
+        if openai_apikey:
+            llm_name = "gpt-3.5"
+            os.environ['OPENAI_API_KEY'] = openai_apikey
 
 os.environ["NEO4J_URL"] = url
 
